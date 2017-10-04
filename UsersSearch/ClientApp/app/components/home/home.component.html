@@ -2,8 +2,48 @@
     <h1>User Search</h1>
 </div>
 <div class="input-group">
-    <input type="text" class="form-control" placeholder="Enter name or part of name..." #seachText (keyup.enter)="onSearch(seachText.value)">
+    <input type="text" class="form-control" placeholder="Enter name or part of name..."
+           (keyup)="onChange(searchText.value)"
+            #searchText (keyup.enter)="onSearch(searchText.value)">
     <span class="input-group-btn">
-        <button class="btn btn-default" type="button" (click)="onSearch(seachText.value)">Search</button>
+        <button class="btn btn-default" type="button" (click)="onSearch(searchText.value)" 
+                [disabled]="!isValid">Search</button>
     </span>
+</div>
+
+<h2>Users Found</h2>
+
+<div *ngIf="isSearching">
+    <img src="/images/ajax-loader.gif" class="center-block" />
+</div>
+
+<div *ngIf="!isSearching && hasSearched && usersFound.length === 0">
+    <p>No results found</p>
+</div>
+
+<div *ngIf="!isSearching && !hasSearched && usersFound.length === 0">
+    <p>Enter a search.</p>
+</div>
+
+<div class="list-group" *ngIf="!isSearching && usersFound.length > 0">
+    <div class="list-group-item" *ngFor="let user of usersFound">
+        <h4 class="list-group-item-heading">{{user.firstName}} {{user.lastName}} ({{getAge(user.birthDate)}} years old)</h4>
+        <div class="list-group-item-text">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="http://images6.fanpop.com/image/photos/32600000/Johnny-Depp-johnny-depp-32658900-2900-4224.jpg" height="60" width="60" />
+                </div>
+                <div class="col-xs-9">
+                    <address>
+                        {{user.address.lineOne}}<br />
+                        {{user.address.city}} {{user.address.adminArea}} {{user.address.postalCode}}
+                    </address>
+                    <label>Interests</label>
+                    <ul>
+                        <li *ngFor="let interest of user.interests">{{interest.description}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
