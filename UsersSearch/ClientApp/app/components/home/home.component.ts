@@ -13,6 +13,10 @@ export class HomeComponent {
             this.forecasts = result.json() as WeatherForecast[];
         }, error => console.error(error));
     }
+    
+    public onSearch(userSearch: string) {
+        alert(userSearch);
+    }
 }
 
 interface WeatherForecast {

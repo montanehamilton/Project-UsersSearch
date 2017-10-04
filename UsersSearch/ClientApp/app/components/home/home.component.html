@@ -2,8 +2,8 @@
     <h1>User Search</h1>
 </div>
 <div class="input-group">
-    <input type="text" class="form-control" placeholder="Enter name or part of name...">
+    <input type="text" class="form-control" placeholder="Enter name or part of name..." #seachText (keyup.enter)="onSearch(seachText.value)">
     <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
+        <button class="btn btn-default" type="button" (click)="onSearch(seachText.value)">Search</button>
     </span>
 </div>
