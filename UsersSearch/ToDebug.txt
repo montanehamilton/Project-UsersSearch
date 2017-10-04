@@ -1,0 +1,11 @@
+﻿Pre-Reqs
+
+.NET Core 2.0
+Node JS
+SQL LocalDb
+
+Once building, create database.
+
+From "Package Manager Console" run, "Update-Database"
+
+"Start Debugging" or "Start without Debugging"
