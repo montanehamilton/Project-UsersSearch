@@ -10,55 +10,32 @@ export class HomeComponent {
     public hasSearched: Boolean;
     public usersFound: User[];
     public isValid: Boolean;
-
-    public forecasts: WeatherForecast[];
-
+    private http: Http;
+    private baseUrl: string;
+    public hasError: Boolean;
+    
     constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
         this.isSearching = false;
         this.hasSearched = false;
+        this.hasError = false;
         this.usersFound = [];
-
-        http.get(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-            this.forecasts = result.json() as WeatherForecast[];
-        }, error => console.error(error));
+        this.http = http;
+        this.baseUrl = baseUrl;
     }
-    
+
     public onSearch(currentSearchText: string) {
         this.hasSearched = true;
         this.isSearching = true;
-        this.usersFound = [
-            new User(
-                "Montane",
-                "Hamilton",
-                new Date(1975, 4, 6),
-                new Address(
-                    "5258 N Grey Hawk Dr",
-                    "",
-                    "Lehi",
-                    "UT",
-                    "84043"),
-                [
-                    new Interest("Model Railroading"),
-                    new Interest("Programming")
-                ]
-            ),
-            new User(
-                "Ollie",
-                "Hamilton",
-                new Date(2005, 4, 6),
-                new Address(
-                    "513 27th St. No.",
-                    "",
-                    "Great Falls",
-                    "MT",
-                    "59401"),
-                [
-                    new Interest("Religion"),
-                    new Interest("Birth")
-                ]
-            )
-        ]
-        this.isSearching = false;
+        this.hasError = false;
+
+        this.http.get(this.baseUrl + 'api/Users/All').subscribe(result => {
+            this.usersFound = result.json() as User[];
+            this.isSearching = false;
+        }, error => {
+            console.error(error);
+            this.isSearching = false;
+            this.hasError = true;
+        });
     }
 
     public onChange(currentSearchText: string) {
@@ -68,25 +45,15 @@ export class HomeComponent {
 
         this.isValid = currentSearchText.length > 0;
     }
-
-    public getAge(birthDate: Date): Number {
-        return new Date().getFullYear() - birthDate.getFullYear();
-    }
-}
-
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
 }
 
 export class User {
     constructor(
         public firstName: string,
         public lastName: string,
-        public birthDate: Date,
-        public address: Address,
+        public age: Number,
+        public avatarUrl: string,
+        public addresses: Address[],
         public interests: Interest[]
     ) {
     }

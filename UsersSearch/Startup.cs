@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UsersSearch.Users;
+using UsersSearch.Users.Services;
 
 namespace UsersSearch
 {
@@ -23,6 +24,7 @@ namespace UsersSearch
             services.AddMvc();
             var connection = @"Server=(localdb)\mssqllocaldb;Database=UsersSearch;Trusted_Connection=True;";
             services.AddDbContext<UsersSearchDbContext>(options => options.UseSqlServer(connection));
+            services.AddTransient<UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
