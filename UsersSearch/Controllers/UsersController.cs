@@ -20,5 +20,17 @@ namespace UsersSearch.Controllers
         {
             return _usersService.GetAllUsers();
         }
+
+        [HttpGet("[action]")]
+        public bool DemoDataStatus()
+        {
+            return _usersService.GetUserCount() > 0;
+        }
+
+        [HttpPost("[action]")]
+        public bool DemoData()
+        {
+            return _usersService.AddOrResetDemoData();
+        }
     }
 }

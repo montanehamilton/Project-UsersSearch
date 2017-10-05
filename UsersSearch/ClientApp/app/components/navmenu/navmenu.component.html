@@ -18,8 +18,13 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/demo-data']">
+                        <span class='glyphicon glyphicon-refresh'></span> Demo Data
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/contact-us']">
-                        <span class='glyphicon glyphicon-th-list'></span> Contact Us
+                        <span class='glyphicon glyphicon-info-sign'></span> Contact Us
                     </a>
                 </li>
             </ul>

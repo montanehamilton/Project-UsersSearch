@@ -17,16 +17,22 @@
     <img src="/images/ajax-loader.gif" class="center-block" />
 </div>
 
-<div *ngIf="!isSearching && hasSearched && usersFound.length === 0">
-    <p>No results found</p>
+<div *ngIf="!isSearching && hasSearched && usersFound.length === 0" class="panel panel-warning">
+    <div class="panel-body bg-warning">
+        <p class="text-warning">No results found</p>
+    </div>
 </div>
 
-<div *ngIf="!isSearching && !hasSearched && usersFound.length === 0">
-    <p>Enter a search.</p>
+<div *ngIf="!isSearching && !hasSearched && usersFound.length === 0" class="panel panel-info">
+    <div class="panel-body bg-info">
+        <p class="text-info">Enter a search.</p>
+    </div>
 </div>
 
-<div *ngIf="hasError">
-    <p>Error while retrieving search results.</p>
+<div *ngIf="hasError" class="panel panel-danger">
+    <div class="panel-body bg-danger">
+        <p class="text-danger">Error while retrieving search results.</p>
+    </div>
 </div>
 
 <div class="list-group" *ngIf="!isSearching && usersFound.length > 0">
