@@ -29,16 +29,19 @@ namespace UsersSearch.Tests
         }
 
         [TestMethod]
-        public void ToUserModelWillGenerateAvatarUrl()
+        public void ToUserModelWillCopyAvatarUrl()
         {
             var user = new User
             {
-                Id = Guid.NewGuid()
+                Avatar = new Avatar
+                {
+                    Image = "SomeUrl"
+                }
             };
 
             var userModel = user.ToUserModel();
 
-            Assert.AreEqual($"/api/Users/{user.Id}/Avatar", userModel.AvatarUrl);
+            Assert.AreEqual($"SomeUrl", userModel.AvatarUrl);
         }
 
         [TestMethod]

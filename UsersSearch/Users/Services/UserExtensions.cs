@@ -10,7 +10,7 @@ namespace UsersSearch.Users.Services
             var userModel = new UserModel
             {
                 Addresses = user.Addresses,
-                AvatarUrl = $"/api/Users/{user.Id}/Avatar",
+                AvatarUrl = user.Avatar?.Image,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Age = DateTime.Now.Year - user.BirthDate.Year,

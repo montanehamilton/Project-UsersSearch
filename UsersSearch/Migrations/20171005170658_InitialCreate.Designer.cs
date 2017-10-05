@@ -11,7 +11,7 @@ using UsersSearch.Users;
 namespace UsersSearch.Migrations
 {
     [DbContext(typeof(UsersSearchDbContext))]
-    [Migration("20171004170826_InitialCreate")]
+    [Migration("20171005170658_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace UsersSearch.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Image");
 
                     b.HasKey("Id");
 

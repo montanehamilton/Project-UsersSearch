@@ -49,7 +49,7 @@ namespace UsersSearch.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Image");
 
                     b.HasKey("Id");
 

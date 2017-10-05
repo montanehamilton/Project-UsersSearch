@@ -28,6 +28,21 @@
     <None Include="ClientApp\app\components\contactus\contactus.component.html" />
     <None Include="ClientApp\app\components\contactus\contactus.component.ts" />
     <None Include="ToRun.txt" />
+    <None Include="wwwroot\DemoImages\bing-headshot-300x300-300x300.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\DemoImages\Guy_Headshot.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\DemoImages\th8GAI5R3K.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\DemoImages\th9WVOU0R3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\DemoImages\thJZD72YL9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

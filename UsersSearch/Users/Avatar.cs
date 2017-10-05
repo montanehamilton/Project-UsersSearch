@@ -6,6 +6,6 @@ namespace UsersSearch.Users
     {
         public Guid Id { get; set; }
 
-        public byte[] Image { get; set; } = new byte[0];
+        public string Image { get; set; }
     }
 }

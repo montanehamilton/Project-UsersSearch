@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UsersSearch.Users.Services;
 using UsersSearch.Users.Dtos;
 using UsersSearch.Controllers.Dtos;
+using System.Threading;
 
 namespace UsersSearch.Controllers
 {
@@ -25,6 +26,7 @@ namespace UsersSearch.Controllers
         [HttpPost("[action]")]
         public IList<UserModel> All([FromBody] SearchRequest request)
         {
+            Thread.Sleep(3000); // To simulate some time so loading gif shows.
             return _usersService.GetMatchingUsers(request.SearchString);
         }
 

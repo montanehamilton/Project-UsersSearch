@@ -3,16 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UsersSearch.Users.Dtos;
+using Microsoft.AspNetCore.Hosting;
 
 namespace UsersSearch.Users.Services
 {
     public class UsersService
     {
         private readonly UsersSearchDbContext _dbContext;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public UsersService(UsersSearchDbContext dbContext)
+        public UsersService(UsersSearchDbContext dbContext, IHostingEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IList<UserModel> GetAllUsers()
@@ -20,6 +23,7 @@ namespace UsersSearch.Users.Services
             return _dbContext.Set<User>()
                 .Include(u => u.Addresses)
                 .Include(u => u.Interests)
+                .Include(u => u.Avatar)
                 .ToList()
                 .Select(u => u.ToUserModel())
                 .ToList();
@@ -30,10 +34,16 @@ namespace UsersSearch.Users.Services
             return _dbContext.Set<User>()
                 .Include(u => u.Addresses)
                 .Include(u => u.Interests)
+                .Include(u => u.Avatar)
                 .Where(u => u.FirstName.Contains(searchString) || u.LastName.Contains(searchString))
                 .ToList()
                 .Select(u => u.ToUserModel())
                 .ToList();
+        }
+
+        internal Avatar GetAvatar(Guid userId)
+        {
+            return _dbContext.Users.Include(u => u.Avatar).First(u => u.Id == userId).Avatar;
         }
 
         public bool AddOrResetDemoData()
@@ -53,7 +63,7 @@ namespace UsersSearch.Users.Services
                 _dbContext.Users.RemoveRange(existingUsers);
                 _dbContext.SaveChanges();
             }
-            
+
             _dbContext.Add(
             new User
             {
@@ -67,7 +77,10 @@ namespace UsersSearch.Users.Services
                             PostalCode ="84043"
                         }
                 },
-                Avatar = new Avatar(),
+                Avatar = new Avatar
+                {
+                    Image = "/demoimages/Guy_Headshot.jpg"
+                },
                 BirthDate = DateTime.Parse("04/06/1982"),
                 FirstName = "Sam",
                 Id = Guid.NewGuid(),
@@ -95,7 +108,10 @@ namespace UsersSearch.Users.Services
                             PostalCode ="59401"
                         }
                 },
-                Avatar = new Avatar(),
+                Avatar = new Avatar
+                {
+                    Image = "/demoimages/th9WVOU0R3.jpg"
+                },
                 BirthDate = DateTime.Parse("12/08/1986"),
                 FirstName = "Rhonda",
                 Id = Guid.NewGuid(),
@@ -123,7 +139,10 @@ namespace UsersSearch.Users.Services
                             PostalCode ="06510"
                         }
                 },
-                Avatar = new Avatar(),
+                Avatar = new Avatar
+                {
+                    Image = "/demoimages/bing-headshot-300x300-300x300.jpg"
+                },
                 BirthDate = DateTime.Parse("12/08/1979"),
                 FirstName = "Trevor",
                 Id = Guid.NewGuid(),
@@ -151,11 +170,14 @@ namespace UsersSearch.Users.Services
                             PostalCode ="80201"
                         }
                 },
-                Avatar = new Avatar(),
+                Avatar = new Avatar
+                {
+                    Image = "/demoimages/thJZD72YL9.jpg"
+                },
                 BirthDate = DateTime.Parse("12/08/1979"),
-                FirstName = "Trevor",
+                FirstName = "Elias",
                 Id = Guid.NewGuid(),
-                LastName = "Adams",
+                LastName = "Acuna",
                 Interests = new List<Interest>{
                         new Interest{
                             Description ="Sailing"
@@ -179,7 +201,10 @@ namespace UsersSearch.Users.Services
                             PostalCode ="95101"
                         }
                 },
-                Avatar = new Avatar(),
+                Avatar = new Avatar
+                {
+                    Image = "/demoimages/th8GAI5R3K.jpg"
+                },
                 BirthDate = DateTime.Parse("12/08/1987"),
                 FirstName = "Nicole",
                 Id = Guid.NewGuid(),
