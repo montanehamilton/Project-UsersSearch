@@ -28,7 +28,7 @@ export class HomeComponent {
         this.isSearching = true;
         this.hasError = false;
 
-        this.http.get(this.baseUrl + 'api/Users/All').subscribe(result => {
+        this.http.post(this.baseUrl + 'api/Users/All', { searchString: currentSearchText }).subscribe(result => {
             this.usersFound = result.json() as User[];
             this.isSearching = false;
         }, error => {

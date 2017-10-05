@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using UsersSearch.Users.Services;
 using UsersSearch.Users.Dtos;
+using UsersSearch.Controllers.Dtos;
 
 namespace UsersSearch.Controllers
 {
@@ -19,6 +20,12 @@ namespace UsersSearch.Controllers
         public IList<UserModel> All()
         {
             return _usersService.GetAllUsers();
+        }
+
+        [HttpPost("[action]")]
+        public IList<UserModel> All([FromBody] SearchRequest request)
+        {
+            return _usersService.GetMatchingUsers(request.SearchString);
         }
 
         [HttpGet("[action]")]

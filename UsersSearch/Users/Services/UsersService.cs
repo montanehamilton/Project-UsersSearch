@@ -25,6 +25,17 @@ namespace UsersSearch.Users.Services
                 .ToList();
         }
 
+        public IList<UserModel> GetMatchingUsers(string searchString)
+        {
+            return _dbContext.Set<User>()
+                .Include(u => u.Addresses)
+                .Include(u => u.Interests)
+                .Where(u => u.FirstName.Contains(searchString) || u.LastName.Contains(searchString))
+                .ToList()
+                .Select(u => u.ToUserModel())
+                .ToList();
+        }
+
         public bool AddOrResetDemoData()
         {
             if (GetUserCount() > 0)
@@ -48,7 +59,7 @@ namespace UsersSearch.Users.Services
             {
                 Addresses = new List<Address>{
                         new Address {
-                            LineOne ="5258 N Grey Hawk Dr",
+                            LineOne ="123 Main St.",
                             LineTwo = string.Empty,
                             AdminArea ="UT",
                             City ="Lehi",
@@ -57,16 +68,16 @@ namespace UsersSearch.Users.Services
                         }
                 },
                 Avatar = new Avatar(),
-                BirthDate = DateTime.Parse("04/06/1975"),
-                FirstName = "Montane",
+                BirthDate = DateTime.Parse("04/06/1982"),
+                FirstName = "Sam",
                 Id = Guid.NewGuid(),
-                LastName = "Hamilton",
+                LastName = "Smith",
                 Interests = new List<Interest>{
                         new Interest{
-                            Description ="Model Railroading"
+                            Description ="Snowboarding"
                         },
                         new Interest {
-                            Description = "Programming"
+                            Description = "Fly Fishing"
                         }
                 }
             });
@@ -85,16 +96,100 @@ namespace UsersSearch.Users.Services
                         }
                 },
                 Avatar = new Avatar(),
-                BirthDate = DateTime.Parse("04/06/2005"),
-                FirstName = "Ollie",
+                BirthDate = DateTime.Parse("12/08/1986"),
+                FirstName = "Rhonda",
                 Id = Guid.NewGuid(),
-                LastName = "Hamilton",
+                LastName = "Rhodes",
                 Interests = new List<Interest>{
                         new Interest{
-                            Description ="Religion"
+                            Description ="Skiing"
                         },
                         new Interest {
-                            Description = "Birthing"
+                            Description = "Skydiving"
+                        }
+                }
+            });
+
+            _dbContext.Add(
+            new User
+            {
+                Addresses = new List<Address>{
+                        new Address {
+                            LineOne ="876 Sycamore St.",
+                            LineTwo = string.Empty,
+                            AdminArea ="CT",
+                            City ="New Haven",
+                            Id =Guid.NewGuid(),
+                            PostalCode ="06510"
+                        }
+                },
+                Avatar = new Avatar(),
+                BirthDate = DateTime.Parse("12/08/1979"),
+                FirstName = "Trevor",
+                Id = Guid.NewGuid(),
+                LastName = "Adams",
+                Interests = new List<Interest>{
+                        new Interest{
+                            Description ="Sailing"
+                        },
+                        new Interest {
+                            Description = "Sports Cars"
+                        }
+                }
+            });
+
+            _dbContext.Add(
+            new User
+            {
+                Addresses = new List<Address>{
+                        new Address {
+                            LineOne ="362 Broadmore Ave.",
+                            LineTwo = string.Empty,
+                            AdminArea ="CO",
+                            City ="Denver",
+                            Id =Guid.NewGuid(),
+                            PostalCode ="80201"
+                        }
+                },
+                Avatar = new Avatar(),
+                BirthDate = DateTime.Parse("12/08/1979"),
+                FirstName = "Trevor",
+                Id = Guid.NewGuid(),
+                LastName = "Adams",
+                Interests = new List<Interest>{
+                        new Interest{
+                            Description ="Sailing"
+                        },
+                        new Interest {
+                            Description = "Sports Cars"
+                        }
+                }
+            });
+
+            _dbContext.Add(
+            new User
+            {
+                Addresses = new List<Address>{
+                        new Address {
+                            LineOne ="296 Surf Blvd.",
+                            LineTwo = string.Empty,
+                            AdminArea ="CA",
+                            City ="San Jose",
+                            Id =Guid.NewGuid(),
+                            PostalCode ="95101"
+                        }
+                },
+                Avatar = new Avatar(),
+                BirthDate = DateTime.Parse("12/08/1987"),
+                FirstName = "Nicole",
+                Id = Guid.NewGuid(),
+                LastName = "Williams",
+                Interests = new List<Interest>{
+                        new Interest{
+                            Description ="Surfing"
+                        },
+                        new Interest {
+                            Description = "Wine"
                         }
                 }
             });
